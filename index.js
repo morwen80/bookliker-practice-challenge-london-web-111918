@@ -20,20 +20,16 @@ const bookList = (book) => {
   }
 }
 
-const selectABook = () => {
-// function selectABook(id) {
+function selectABook(id) {
   let bookShelf = document.createElement('div');
-  api().then(data => {
-  // let book = data.find(book => book)
-
-  // .then(data => {data.forEach(book => selectABook(book.img_url))
-data.forEach(book => renderBook(book)
-)}
-)
+    api().then(data => {
+    book = data.find(book => book.id === id)
+    renderBook(book)
+  })
 
 
 const renderBook = (book) => {
-  bookShelf.innerHTML += `
+  bookShelf.innerHTML = `
       <img src="${book.img_url}">
       <br>
       ${book.description}
@@ -41,10 +37,8 @@ const renderBook = (book) => {
       <b>Users who liked this book: </b>${book.users}
     `
     document.querySelector("#show-panel").appendChild(bookShelf)
-  // )
-}
+  }
 
-// )
 }
 
 
