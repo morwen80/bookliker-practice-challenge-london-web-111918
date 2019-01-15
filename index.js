@@ -20,22 +20,35 @@ const bookList = (book) => {
   }
 }
 
-
-function selectABook(id) {
+const selectABook = () => {
+// function selectABook(id) {
   let bookShelf = document.createElement('div');
   api().then(data => {
-  let book = data.find(book => book.id === id)
-    bookShelf.innerHTML = `
-      <img src="${book.img_url}">
+  // let book = data.find(book => book)
 
+  // .then(data => {data.forEach(book => selectABook(book.img_url))
+data.forEach(book => renderBook(book)
+)}
+)
+
+
+const renderBook = (book) => {
+  bookShelf.innerHTML += `
+      <img src="${book.img_url}">
       <br>
       ${book.description}
       <hr>
       <b>Users who liked this book: </b>${book.users}
     `
     document.querySelector("#show-panel").appendChild(bookShelf)
-})
+  // )
+}
+
+// )
 }
 
 
 fetchBooks()
+
+// every element in list has a onclick element that triggers the selectABook function
+// with EVENT id as param
