@@ -1,4 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
+
 body {
+	font-family: 'Work Sans', sans-serif;
 	display: grid;
-	grid-template-columns: 2fr 8fr
+	grid-template-columns: 3fr 7fr;
+}
+
+li {
+	/* line-height: 100%; */
+}
+
+#brand {
+	font-size: 2rem;
+	text-align: left;
+	padding-left: 0.5rem;
+	color: #FF5B60;
+	font-weight: 700;
+	font-family: 'Special Elite', cursive;
+	text-decoration: underline;
+}
+
+#show-panel div {
+	width: 500px;
+	/* border: 2px solid gray; */
+	display:block;
+	padding: .5rem;
+	overflow:auto;
+	height: auto;
+	margin-bottom: 1rem;
+	clear: both;
+	background-color: #A89B93;
+}
+
+.singleBook {
+font-size: .8rem;
+}
+.desc {
+	padding-right: .4rem;
+}
+
+#liked {
+	font-size: .3rem;
+	padding-left: .5rem;
+	color: red;
+}
+#show-panel img {
+	float: left;
+	margin: .5rem;
 }
