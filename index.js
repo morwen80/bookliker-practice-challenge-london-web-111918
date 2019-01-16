@@ -1,14 +1,10 @@
-// document.addEventListener("DOMContentLoaded", fetchBooks());
-
 function api(){
   return fetch("http://localhost:3000/books").then(res => res.json())
 }
-
-const bookFansArray = []
+const user1 = { "id": 1, "username": "morwen"}
 
 function fetchBooks(){
-  api().then(data => {data.forEach(bookList)
-})
+  api().then(data => data.forEach(bookList))
 
 const bookList = (book) => {
   const bookEl = document.createElement('li')
@@ -21,7 +17,7 @@ const bookList = (book) => {
       <!-- <input id="liked" type="checkbox"> Like this book? -->
     `
     checkMe.innerHTML = `
-    <input id="liked" type="checkbox">Like this book?
+    <input id="${book.id}" type="checkbox"> Like this book?
     `
 
     document.querySelector("#list").appendChild(bookEl)
@@ -43,17 +39,58 @@ const renderBook = (book) => {
       <img src="${book.img_url}">
       <p class="desc">${book.description}</p>
       <div class="users">
-      <b>Users who liked this book:</b>${book.users}
+      <b>Users who liked this book:</b> ${book.users.map(u => ` ${u.username}`)}
         </div>
       </div>
     `
-    document.querySelector("#show-panel").appendChild(bookShelf);
+    const showPanel = document.querySelector("#show-panel")
+    showPanel.innerHTML = ""
+    showPanel.appendChild(bookShelf);
   }
-
 }
+
+// need a let equal to a user's array?
+
+function editUserList(id) {
+  fetch(`http://localhost:3000/books/${id}`)
+    .then(res => res.json())
+    .then(book => {
+      book.users.push(user1)
+      fetch(`http://localhost:3000/books/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify(book)
+    })
+    .then(resp => resp.json())
+    .then(data => selectABook(data.id))
+    })
+}
+
+
+// function editUserList(id) {
+//   fetch(`http://localhost:3000/books`, {
+//   headers: {
+//     'Accept': 'application/json',
+//     'Content-Type': 'application/json'
+//   },
+//   method: 'patch',
+//   body: [
+//     {"op": "add", "path": `/${id}`, "value": { "id": 1, "username": "morwen"} }
+//   ]
+// })
+// }
+
+
 
 
 fetchBooks()
 
-// every element in list has a onclick element that triggers the selectABook function
-// with EVENT id as param
+document.addEventListener("click", (event) => {
+  if (event.target.type == "checkbox"){
+    console.log("this worked")
+    editUserList(event.target.id)
+  }
+})
